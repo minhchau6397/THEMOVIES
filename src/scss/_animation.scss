@@ -1,0 +1,50 @@
+/*--- CAROUSEL ANIMATION ---*/
+.dis-l2r {
+    display: block !important;
+    animation: disappear-left-to-right $delayCarousel forwards;
+}
+.dis-r2l {
+    display: block !important;
+    animation: disappear-right-to-left $delayCarousel forwards;
+}
+.app-l2r {
+    display: block !important;
+    animation: appear-left-to-right $delayCarousel forwards;
+}
+.app-r2l {
+    display: block !important;
+    animation: appear-right-to-left $delayCarousel forwards;
+}
+
+@keyframes disappear-left-to-right {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+@keyframes disappear-right-to-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+@keyframes appear-left-to-right {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+@keyframes appear-right-to-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

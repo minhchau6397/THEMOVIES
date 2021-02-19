@@ -1,0 +1,37 @@
+#article {
+    margin: 20px 0;
+    font-family: Roboto;
+    font-size: 18px;
+    .wrap {
+        padding: 0;
+        margin: 0 auto;
+        max-width: 870px;
+    }
+    .title {
+        text-align: center;
+        font-weight: 600;
+        font-size: 2.8em;
+        margin: 30px 0;
+    }
+    .content {
+        padding: 0 30px;
+        margin: 60px 0;
+        line-height: 1.4;
+        &> img {
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+        }
+        & > p {
+            text-align: justify;
+            margin: 10px 0;
+        }
+    }
+    .list-news {
+        display: flex;
+        margin: 30px 0;
+        &>li {
+            padding: 0 5px;
+        }
+    }
+}

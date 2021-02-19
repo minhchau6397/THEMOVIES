@@ -1,0 +1,72 @@
+$bgPrimary:  #ffffff;
+$txtPrimary: #000000;
+$delayCarousel: 0.5s;
+
+/* MOBILE VARIABLEs */
+$txtsizeLogo_nav:24px;
+$txtMobile_Nav: #ffffff;
+$bgMobile_Nav: #272728;
+$txtsizeNav: 24px;
+$txtsizeNav_item: 32px;
+$txthoverNav: #eb2f06;
+
+$txtMovie_bodyContent_age: #ffffff;
+$bgMovie_bodyContent_age_c18: #ff3838d9;
+$bgMovie_bodyContent_age_p: #0be881;
+$txtMovie_bodyContent_ratingStar:#ffffff;
+$bgMovie_bodyContent_ratingStar: #ffd32acc;
+
+
+$txtsizeMovie_bodyContent_movieCtrl: 24px;
+$txtMovie_bodyContent_movieCtrl:#ffffff;
+$bgMovie_bodyContent_movieCtrl: #545b62;
+$bgMovie_bodyContent_movieCtrl_disable: lighten(#545b62,35);
+
+
+/*------ footer ------*/
+$bgFooter: #0A171B;
+$txtsizeFooter: 20px;
+$txtFooter: #bdbdbd;
+
+$txtsizeFooter_logo: 30px;
+$txtFooter_logo: #ffffff;
+
+$txtsizeFooter_about: 15px;
+$txtheightFooter_about: 1.4;
+$txtfontFooter_about: "Roboto";
+
+$txtsizeFooter_contact_title: 24px;
+$txtsizeFooter_contact_content: 18px;
+$txtheightFooter_contact_content: 1.4;
+
+
+/* tablet VARIABLEs */
+$txtsizeLogo_nav_tablet: 22px;
+$txtNav_header: #000000;
+$txtsizeNav_header: 15px;
+
+$txtsizeLeadBanner_title: 26px;
+$txtsizeLeadBanner_content: 16px;
+$fontLeadBanner_content: "Roboto";
+$txtsizeLeadBanner_ctrl: 25px;
+$colorLeadBanner_ctrl: #ffffff73;
+
+$sizeMovie_bodyContent_cardTitle: 14px;
+
+$sizeMiniCard_title: 18px;
+$colorMiniCard_title_bhd:  #4fd43a;
+$sizeMiniCard_address: 17px;
+$colorMiniCard_address:  #828282;
+$sizeMiniCard_timeShowing: 15px;
+
+/*------- Movie html --------*/
+$bgMovieContent: rgb(10, 32, 41);
+$colorMovieContent: #dcd9d9;
+$coloractiveMovieContent: red;
+$colorhoverMovieContent: red;
+$colorsubMovieContent: #e2e2e2;
+$sizeMovieContent_Card_title: 20px;
+$sizesubMovieContent_Card: 15px;
+
+//tablet 
+$tablet_size_titleTablet: 21px;

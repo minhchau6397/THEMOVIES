@@ -1,0 +1,69 @@
+@mixin btn($color) {
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        border: 1px solid $color;
+        border-radius: 5px;
+    }
+}
+
+@mixin mainTitle {
+    text-align: center;
+
+    h2 {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 1.5em;
+        background: $bgPrimary;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        border-bottom: 3px solid grey;
+        margin-top: -23px;
+    }
+}
+
+@mixin cards() {
+    .article {
+        overflow: hidden;
+
+        .cards-title {
+            height: 56px;
+            margin-top: 5px;
+            font-weight: bold;
+            font-size: 1.15em;
+            font-family: 'Roboto';
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .cards-content {
+            font-family: 'Roboto';
+            height: 66px;
+            color: lighten(#000000, 50);
+            font-size: 0.9em;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            text-align: justify;
+        }
+        img {
+            border-radius: 3px;
+        }
+    }
+}
+
+@mixin grid($column, $value, $gap) {
+    display: grid;
+    grid-template-columns: repeat($column, $value);
+    gap: $gap;
+    width: 100%;
+}

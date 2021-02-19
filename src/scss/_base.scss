@@ -1,0 +1,250 @@
+@font-face {
+    font-family: "Roboto";
+    src: local('Roboto'), url(./../fonts/RobotoCondensed-Regular.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: local('OpenSans'), url(./../fonts/OpenSans-Regular.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: local('OpenSans'), url(./../fonts/OpenSans-Bold.ttf) format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: local('OpenSans'), url(./../fonts/OpenSans-SemiBold.ttf) format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: 'OpenSans';
+    color: $txtPrimary;
+    font-size: 18px;
+    line-height: 1.4;
+    background-color: $bgPrimary;
+}
+
+a {
+    text-decoration: none;
+    color: $txtPrimary;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    border-style: none;
+    vertical-align: middle;
+}
+
+button {
+    border: none;
+    padding: 0;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.nav-tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+    font-size: 20px;
+
+    li {
+        height: 40px;
+        margin: 0 15px;
+
+        &.active>button {
+            font-size: 1.3em;
+            color: $coloractiveMovieContent !important;
+        }
+    }
+
+    button {
+        font-family: 'Roboto';
+        text-transform: uppercase;
+        font-size: 1.1em;
+        font-weight: 600;
+
+        &:focus {
+            outline: 0;
+        }
+
+        &:hover {
+            transition: 0.5s;
+            font-size: 1.3em !important;
+        }
+    }
+}
+
+.line {
+    width: 100%;
+    padding-top: 120px;
+    background-size: cover;
+    background: url(../images/bg_line.png);
+    background-position: 50% 60%;
+    background-repeat: no-repeat;
+    // box-shadow: 0 0 7px grey;
+    margin-top: 40px;
+}
+
+.myslide {
+    display: none;
+    height: 100%;
+    width: 100%;
+
+    &.active {
+        display: block;
+    }
+}
+
+.container {
+    position: relative;
+    max-width: 1080px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.wrap {
+    padding: 0 10px;
+}
+
+.age {
+    display: inline-block;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $txtMovie_bodyContent_age;
+
+    i {
+        display: inline-block;
+        border-radius: 7px;
+    }
+
+    .c18 {
+        background-color: $bgMovie_bodyContent_age_c18;
+    }
+
+    .p {
+        background-color: $bgMovie_bodyContent_age_p;
+    }
+}
+
+.custom-scroll {
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(170, 170, 170);
+        border-radius: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgb(160, 160, 160);
+    }
+}
+
+.wraps {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .col {
+        width: 100%;
+        float: left;
+    }
+}
+
+@media only screen and (min-width: 620px) {
+    .col {
+        width: 50%;
+        float: left;
+    }
+}
+
+.collapse {
+    opacity: 0;
+    height: 0;
+}
+
+.collapse-show {
+    position: relative;
+    height: auto;
+    display: block !important;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.bhd {
+    color: $colorMiniCard_title_bhd;
+}
+
+.lotte {
+    color: red;
+}
+
+.cgv {
+    color: purple;
+}
+
+.galaxy {
+    color: orange;
+}
+
+.cns {
+    color: blue;
+}
+
+.col-md {
+    width: 100%;
+}
+
+.break {
+    margin: 30px auto;
+    width: 80%;
+    border-top: 1px solid #cacaca;
+}
+
+@media only screen and (min-width: 576px) {
+    .col-md {
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+}
+
+@include cards();
+@include btn(white);
