@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom';
 import { compose } from 'redux'
@@ -7,6 +7,9 @@ import { firestoreConnect } from 'react-redux-firebase'
 export const Article = (props) => {
     const { recNews, news } = props;
 
+    useEffect(() => {
+        document.documentElement.scrollIntoView()
+    }, [])
     
     const renderListSuggest = () => {
         return recNews.map((item, index) => {

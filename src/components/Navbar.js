@@ -20,7 +20,7 @@ export const Navbar = (props) => {
             <div className="block" style={{ height: '61px' }}></div>
             <nav id="main-nav" style={{ top: '0', position: 'fixed', width: '100%', zIndex: '10' }} >
                 <div className="wrapss">
-                    <Link onClick={() => handleNav('home')} to="/"><h1 id="logo">The Movie</h1></Link>
+                    <Link onClick={() => handleNav('home')} to="/"><h1 id="logo">The Movies</h1></Link>
                     <button className={`nav-toggler-icon ${show ? "active" : ""}`} onClick={handleToggleIcon}>
                         <i className="fas fa-bars" />
                     </button>

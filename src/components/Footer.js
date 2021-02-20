@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className="container">
                     <div className="wrap">
                         <div className="about">
-                            <h2 className="logo">THE MOVIE</h2>
+                            <h2 className="logo">THE MOVIES</h2>
                             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et velit esse beatae alias commodi quaerat! Perspiciatis consectetur quae exercitationem itaque laboriosam, similique dicta quibusdam quos rerum dolorem. Odit, quidem voluptate.</p>
                         </div>
                         <div className="contact">

@@ -30,6 +30,7 @@ export const News = (props) => {
 
     const handleClickNav = (index) => {
         setNavIndex(index)
+        setMultiple(1)
     }
 
 

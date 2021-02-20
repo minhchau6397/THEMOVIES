@@ -45,7 +45,9 @@ export const MovieDetail = (props) => {
             setCurrentCinema(Object.keys(cinemas)[0]);
         }
     }, [cinemas])
-
+    useEffect(() => {
+        document.documentElement.scrollIntoView()
+    }, [])
 
     const handleNavIndext = (index) => {
         setNavIndex(index);
