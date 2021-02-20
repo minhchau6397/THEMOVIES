@@ -7,11 +7,15 @@ import {
 export const getLocation = (idCinema) => {
     return (dispatch, getState, { getFirebase }) => {
         const firestore = getFirebase().firestore();
-
+        let docs
         firestore.collection(`cinemas/${idCinema}/locations`).get().then(querySnapshot => {
-            const docs = querySnapshot.docs.map(doc => {
-                return { id: doc.id, ...doc.data() }
-            })
+            if (!querySnapshot.empty) {
+                docs = querySnapshot.docs.map(doc => {
+                    return { id: doc.id, ...doc.data() }
+                })
+            } else {
+                docs = null;
+            }
             dispatch({ type: GET_LOCATIONS, docs, idCinema })
         })
     }

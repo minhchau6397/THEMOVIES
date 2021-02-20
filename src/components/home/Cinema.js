@@ -5,7 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 
 import { dateToString, timestrToSec, formatTime } from '../../utility'
 import { getLocation } from '../../redux/actions/cinema_action'
-import { getSchedulesByLocation } from '../../redux/actions/schedules_action'
+import { getSchedulesByLocation, setSchedulesHome } from '../../redux/actions/schedules_action'
 import { setNav } from '../../redux/actions/nav_action'
 
 export const Cinema = (props) => {
@@ -25,6 +25,7 @@ export const Cinema = (props) => {
     useEffect(() => {
         if (keyCinema) {
             props.getLocations(keyCinema);
+            props.setSchedulesHome();
         }
     }, [keyCinema])
     useEffect(() => {
@@ -157,7 +158,8 @@ const mapDispatchToProps = dispatch => {
     return {
         setNav: (name, value) => dispatch(setNav(name, value)),
         getLocations: idCinema => dispatch(getLocation(idCinema)),
-        getSchedules: (keyCinema, keyLocation) => dispatch(getSchedulesByLocation(keyCinema, keyLocation))
+        getSchedules: (keyCinema, keyLocation) => dispatch(getSchedulesByLocation(keyCinema, keyLocation)),
+        setSchedulesHome: () => dispatch(setSchedulesHome())
     }
 }
 

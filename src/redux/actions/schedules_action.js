@@ -4,9 +4,11 @@ import {
 import { dateToString } from '../../utility'
 
 //------------get schedules data with cinema, location, operator to get date('>=' or '==')
+export const setSchedulesHome = () => {
+    return { type: GET_SCHEDULES, data: { home: undefined } }
+}
 export const getSchedulesByLocation = (idCinema, idLocation) => {
     return (dispatch, getState, { getFirebase }) => {
-        dispatch({ type: GET_SCHEDULES, data: { home: undefined } })
         const firestore = getFirebase().firestore();
         const todayString = dateToString(new Date());
         let data = {};
