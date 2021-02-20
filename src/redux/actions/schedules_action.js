@@ -13,13 +13,22 @@ export const getSchedulesByLocation = (idCinema, idLocation) => {
 
         firestore.collection(`cinemas/${idCinema}/locations/${idLocation}/broadcast`).where('expireTime', '>=', todayString).get().then(querySnapshot => {
             if (!querySnapshot.empty) {
-                querySnapshot.forEach(doc => {
-                    doc.ref.collection('schedules').doc(todayString).get().then(schedule => {
+                Promise.all(querySnapshot.docs.map(doc => {
+                    return doc.ref.collection('schedules').doc(todayString).get().then(schedule => {
                         if (schedule.exists) {
-                            data[doc.id] = schedule.data();
+                            let array = {}
+                            array[doc.id] = schedule.data();
+                            return array
                         }
-                        dispatch({ type: GET_SCHEDULES, data: { home: data } })
+                        return null
                     })
+                })).then(result => {
+                    result.forEach(item => {
+                        if (item) {
+                            data = { ...data, ...item }
+                        }
+                    })
+                    dispatch({ type: GET_SCHEDULES, data: { home: data } })
                 })
             } else {
                 data = null
@@ -46,7 +55,7 @@ export const getSchedulesByMovie = (idMovie) => {
                         if (!query.empty) {
                             let array = {}
                             array.cinema = info.cinema;
-                            array.location= info.location;
+                            array.location = info.location;
                             query.forEach(schedule => {
                                 array.date = {
                                     ...array.date,
@@ -65,7 +74,7 @@ export const getSchedulesByMovie = (idMovie) => {
                                 let date = item.date[keyDate]
                                 if (data[item.cinema][keyDate]) {
                                     if (!data[item.cinema][keyDate][item.location]) {
-                                        data[item.cinema][keyDate][item.location] = {...date}
+                                        data[item.cinema][keyDate][item.location] = { ...date }
                                     }
                                 } else {
                                     data[item.cinema][keyDate] = {
@@ -93,13 +102,13 @@ export const addSchedule = (id, schedule, sub, sub2) => {
         const today = new Date()
 
         //--------INSERT DOC
-        firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
-            ...schedule
-        }).then(res => {
-            console.log(schedule, res);
-        }).catch(err => {
-            console.log(err);
-        })
+        // firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
+        //     ...schedule
+        // }).then(res => {
+        //     console.log(schedule, res);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
         // today.setDate(today.getDate() + 1)
         // firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
         //     ...schedule
@@ -108,27 +117,35 @@ export const addSchedule = (id, schedule, sub, sub2) => {
         // }).catch(err => {
         //     console.log(err);
         // })
+        // today.setDate(today.getDate() + 2)
+        // firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
+        //     ...schedule
+        // }).then(res => {
+        //     console.log(schedule, res);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
 
-        // firestore.collection(`cinemas/${id}`).doc("Pshi7tywwPLu9fHcTH1f").set({
-        //     expireTime: '2021-02-20',
-        //     movie: 'Pshi7tywwPLu9fHcTH1f',
-        //     cinema: sub,
-        //     location: sub2
-        // }).then(res => {
-        //     console.log(schedule, res);
-        // }).catch(err => {
-        //     console.log(err);
-        // })
-        // firestore.collection(`cinemas/${id}`).doc("blpfNZIEPaqq8oMT0S0M").set({
-        //     expireTime: '2021-02-20',
-        //     movie: 'blpfNZIEPaqq8oMT0S0M',
-        //     cinema: sub,
-        //     location: sub2
-        // }).then(res => {
-        //     console.log(schedule, res);
-        // }).catch(err => {
-        //     console.log(err);
-        // })
+        firestore.collection(`cinemas/${id}`).doc("Pshi7tywwPLu9fHcTH1f").set({
+            expireTime: '2021-04-20',
+            movie: 'Pshi7tywwPLu9fHcTH1f',
+            cinema: sub,
+            location: sub2
+        }).then(res => {
+            console.log(schedule, res);
+        }).catch(err => {
+            console.log(err);
+        })
+        firestore.collection(`cinemas/${id}`).doc("blpfNZIEPaqq8oMT0S0M").set({
+            expireTime: '2021-04-20',
+            movie: 'blpfNZIEPaqq8oMT0S0M',
+            cinema: sub,
+            location: sub2
+        }).then(res => {
+            console.log(schedule, res);
+        }).catch(err => {
+            console.log(err);
+        })
 
 
         //--------DELETE DOC
