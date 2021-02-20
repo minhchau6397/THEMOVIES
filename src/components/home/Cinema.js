@@ -37,6 +37,7 @@ export const Cinema = (props) => {
     }, [cinemaData])
     useEffect(() => {
         if (keyLocation) {
+            props.setSchedulesHome();
             props.getSchedules(keyCinema, keyLocation);
         }
     }, [keyLocation])
