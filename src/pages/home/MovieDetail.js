@@ -85,68 +85,68 @@ export const MovieDetail = (props) => {
         return content;
     }
     const renderCinemaMobile = () => {
-            let count = 0;
-            let content = []
-            content = Object.keys(schedules).map((item, indexItem) => {
-                if (schedules[item] && schedules[item][currentDate]) {
-                    count++;
-                    let schedule = schedules[item][currentDate];
-                    let cinema = cinemas[item];
-                    return (
-                        <li key={indexItem} className="cinema-item">
-                            <div className="wraps" onClick={() => setToggle(state => ({ ...state, [item]: !state[item] }))}>
-                                <img src={cinema.image} alt={cinema.cinema} />
-                                <h3>{cinema.cinema}</h3>
-                                <span className="icon-ctrl" />
-                            </div>
-                            <ul className={`movie-list${(toggle[item]) ? " active" : ""}`}>
-                                {
-                                    Object.keys(schedule).map((name, key) => {
-                                        let type = schedule[name];
-                                        let location = locations[name]
-                                        return (
-                                            <li key={key} className="movie-item">
-                                                <div className="mini-card">
-                                                    <img src={location.thumbnail} alt={`${cinema.cinema} - ${location.name}`} />
-                                                    <div className="card-body">
-                                                        <h3 className="cards-title">{location.name}</h3>
-                                                        <div className="address">{location.address}</div>
-                                                    </div>
-                                                    {
-                                                        Object.keys(type).map((typeName, typeKey) => {
-                                                            return (
-                                                                <React.Fragment key={typeKey}>
-                                                                    <div className="version">{typeName}</div>
-                                                                    <ul className="time-showing-list grid">
-                                                                        {
-                                                                            type[typeName].map((time, timeKey) => {
-                                                                                return (
-                                                                                    <li key={timeKey} className="time-showing">
-                                                                                        <span className="starting-time">{time}</span><span className="ending-time">{formatTime(timestrToSec(time) + (movie.length * 60))}</span>
-                                                                                    </li>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </ul>
-                                                                </React.Fragment>
-                                                            )
-                                                        })
-                                                    }
+        let count = 0;
+        let content = []
+        content = Object.keys(schedules).map((item, indexItem) => {
+            if (schedules[item] && schedules[item][currentDate]) {
+                count++;
+                let schedule = schedules[item][currentDate];
+                let cinema = cinemas[item];
+                return (
+                    <li key={indexItem} className="cinema-item">
+                        <div className="wraps" onClick={() => setToggle(state => ({ ...state, [item]: !state[item] }))}>
+                            <img src={cinema.image} alt={cinema.cinema} />
+                            <h3>{cinema.cinema}</h3>
+                            <span className="icon-ctrl" />
+                        </div>
+                        <ul className={`movie-list${(toggle[item]) ? " active" : ""}`}>
+                            {
+                                Object.keys(schedule).map((name, key) => {
+                                    let type = schedule[name];
+                                    let location = locations[name]
+                                    return (
+                                        <li key={key} className="movie-item">
+                                            <div className="mini-card">
+                                                <img src={location.thumbnail} alt={`${cinema.cinema} - ${location.name}`} />
+                                                <div className="card-body">
+                                                    <h3 className="cards-title">{location.name}</h3>
+                                                    <div className="address">{location.address}</div>
                                                 </div>
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
-                        </li>
-                    )
-                }
-            })
-            if (count > 0) {
-                return content
-            } else {
-                return renderEmpty();
+                                                {
+                                                    Object.keys(type).map((typeName, typeKey) => {
+                                                        return (
+                                                            <React.Fragment key={typeKey}>
+                                                                <div className="version">{typeName}</div>
+                                                                <ul className="time-showing-list grid">
+                                                                    {
+                                                                        type[typeName].map((time, timeKey) => {
+                                                                            return (
+                                                                                <li key={timeKey} className="time-showing">
+                                                                                    <span className="starting-time">{time}</span><span className="ending-time">{formatTime(timestrToSec(time) + (movie.length * 60))}</span>
+                                                                                </li>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </ul>
+                                                            </React.Fragment>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </li>
+                )
             }
+        })
+        if (count > 0) {
+            return content
+        } else {
+            return renderEmpty();
+        }
     }
     const renderMobile = () => {
         return (
@@ -159,7 +159,7 @@ export const MovieDetail = (props) => {
                             </ul>
                         </div>
                         <ul className="list-cinema">
-                            {(cinemas && schedules) ? renderCinemaMobile() : renderLoading()}
+                            {(schedules !== null) ? (schedules !== undefined && currentCinema) ? renderCinemaMobile() : renderLoading() : renderEmpty()}
                         </ul>
                     </div>
                 </div>
@@ -219,7 +219,7 @@ export const MovieDetail = (props) => {
                                 {renderListDate()}
                             </ul>
                             <ul className="movie-list custom-scroll">
-                                {(schedules && currentCinema) ? renderListSchedule() : renderLoading()}
+                                {(schedules !== null) ? (schedules !== undefined && currentCinema) ? renderListSchedule() : renderLoading() : renderEmpty()}
                             </ul>
                         </div>
                     </div>
