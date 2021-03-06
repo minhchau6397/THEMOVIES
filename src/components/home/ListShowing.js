@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect, useRef } from 'react'
+import { connect, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
 import { Link } from 'react-router-dom'
 import { compose } from 'redux';
@@ -12,6 +12,7 @@ import { setNav } from '../../redux/actions/nav_action';
 
 export const ListShowing = (props) => {
     const { isMobile, movies, coming } = props;
+    const dispatch = useDispatch();
     const [carousel, setCarousel] = useState(0);
     const [isComing, setIsComing] = useState(false);
     const [dir, setDir] = useState(1);
@@ -30,9 +31,9 @@ export const ListShowing = (props) => {
     useEffect(() => {
         if (elRef.current && props.nav) {
             elRef.current.scrollIntoView({ behavior: 'smooth' });
-            props.setNav('showing', false)
+            dispatch(setNav('showing', false));
         }
-    }, [props.nav])
+    }, [props.nav, dispatch])
     useEffect(() => {
         if (movies) {
             let numberCarousel = Math.ceil(movies.length / 8);
@@ -63,7 +64,7 @@ export const ListShowing = (props) => {
     }, [coming])
 
 
-    const handleCarousel = useCallback((direction) => {
+    const handleCarousel = (direction) => {
         let current = carousel + direction;
         let length = Math.ceil(movies.length / 8);
         if (current < 0) {
@@ -74,8 +75,8 @@ export const ListShowing = (props) => {
         }
         setDir(direction);
         setCarousel(current);
-    })
-    const handleCarouselMobile = useCallback((direction) => {
+    }
+    const handleCarouselMobile = (direction) => {
         let current = carousel + direction;
         let length = Math.ceil(movies.length / 8);
         if (current < 0) {
@@ -87,7 +88,7 @@ export const ListShowing = (props) => {
         setDir(direction);
         setCarousel(current);
         elRef.current.scrollIntoView()
-    })
+    }
 
 
     //----------Showing component
@@ -224,14 +225,9 @@ const mapStateToProps = (state) => ({
     //     {age: "c18",background: "/images/slide_4.jpg",cast: "Kelly Marie Tran, Cloris Leachman, Catherine Keener, Ryan Reynolds, Emma Stone, Nicolas Cage",category: "Hài, Hoạt Hình",describes: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere voluptate quam quae dicta ad quos, numquam et illum illo accusamus nesciunt voluptatem dignissimos fugiat quasi debitis eos, officia assumenda quia?",expireTime: "2021-02-20",id: "iU3CD34NCR29Kg2XNIhm",image: "/images/banner_peninsula.jpg",imageMobile: "/images/slide_4.jpg",imdb: "0",length: "103",nation: "Mỹ",producer: "Joel Crawford",release: "2021-01-05",score: "5.5",thumbnail: "https://via.placeholder.com/150.png",titleEN: "Peninsula",titleVN: "Bán đảo Peninsula",type: "2D/Digital"},
     // ]
 })
-const mapDispatchToProps = dispatch => {
-    return {
-        setNav: (name, value) => dispatch(setNav(name, value))
-    }
-}
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, null),
     firestoreConnect([
         {
             collection: "movies",

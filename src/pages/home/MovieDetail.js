@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { compose } from 'redux'
-import { connect } from 'react-redux'
+import { connect,useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 
@@ -16,6 +16,7 @@ import { dateToString, useWindowDimension, formatTime, timestrToSec } from '../.
 
 export const MovieDetail = (props) => {
     const { movie, cinemas, schedules, locations } = props;
+    const dispatch = useDispatch();
     const { windowWidth } = useWindowDimension();
     const navList = ["Lịch chiếu", "Thông tin"];
     const movieId = props.match.params.id;
@@ -37,9 +38,9 @@ export const MovieDetail = (props) => {
     }, [schedules])
     useEffect(() => {
         if (movie) {
-            props.getSchedules(movieId)
+            dispatch(getSchedulesByMovie(movieId));
         }
-    }, [movie])
+    }, [movie, movieId, dispatch])
     useEffect(() => {
         if (cinemas) {
             setCurrentCinema(Object.keys(cinemas)[0]);
@@ -141,6 +142,7 @@ export const MovieDetail = (props) => {
                     </li>
                 )
             }
+            return '';
         })
         if (count > 0) {
             return content
@@ -272,7 +274,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        getSchedules: idMovie => dispatch(getSchedulesByMovie(idMovie))
+        // getSchedules: idMovie => dispatch(getSchedulesByMovie(idMovie))
     }
 }
 

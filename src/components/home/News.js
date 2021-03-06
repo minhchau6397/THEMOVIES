@@ -1,31 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 
 import { getNewsByCategory } from '../../redux/actions/news_action'
 import { setNav } from '../../redux/actions/nav_action'
 
 export const News = (props) => {
     const { news } = props
+    const dispatch = useDispatch();
     const [navIndex, setNavIndex] = useState(0);
     const [multiple, setMultiple] = useState(1);
     const elRef = useRef(null);
-    const newsId = 'news';
-    let nav = {
+    const nav = useMemo(() => ({
         name: ["Tổng hợp", "Review", "Khuyến mãi"],
         type: ["all", "review", "sale"]
-    };
+    }), [])
 
 
     useEffect(() => {
-        props.getNews(nav.type[navIndex], multiple);
-    }, [navIndex, multiple])
+        dispatch(getNewsByCategory(nav.type[navIndex], multiple));
+    }, [navIndex, multiple, nav, dispatch])
     useEffect(() => {
         if (elRef.current && props.nav) {
             elRef.current.scrollIntoView({ behavior: 'smooth' });
-            props.setNav('news', false)
+            dispatch(setNav('news', false));
         }
-    }, [props.nav])
+    }, [props.nav, dispatch])
 
 
     const handleClickNav = (index) => {
@@ -61,10 +61,10 @@ export const News = (props) => {
     const renderLoading = () => {
         return <div style={{ textAlign: "center", height: '701px' }}>loading</div>
     }
-    const renderEmpty = () => {
-        return <div style={{ textAlign: "center", height: '701px' }}>empty content</div>
-    }
-    
+    // const renderEmpty = () => {
+    //     return <div style={{ textAlign: "center", height: '701px' }}>empty content</div>
+    // }
+
     return (
         <section id="news" ref={elRef}>
             <div className="wrap">
@@ -79,8 +79,8 @@ export const News = (props) => {
                     {(news.length > 0) ? renderNews() : renderLoading()}
                 </ul>
                 <div className="ctrl-insert">
-                    <button onClick={() => setMultiple(multiple + 1)} disabled={(multiple * 8 > news.length)?true:false} style={(multiple * 8 > news.length)?{backgroundColor:'#bf4145'}:{}} className="btn">{(multiple * 8 > news.length)?"Hết tin tức":"xem thêm"}</button>
-            </div>
+                    <button onClick={() => setMultiple(multiple + 1)} disabled={(multiple * 8 > news.length) ? true : false} style={(multiple * 8 > news.length) ? { backgroundColor: '#bf4145' } : {}} className="btn">{(multiple * 8 > news.length) ? "Hết tin tức" : "xem thêm"}</button>
+                </div>
             </div>
         </section >
     )
@@ -91,11 +91,4 @@ const mapStateToProps = (state) => ({
     nav: state.nav.news
 })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getNews: (catagory, multiple) => dispatch(getNewsByCategory(catagory, multiple)),
-        setNav: (name, value) => dispatch(setNav(name, value))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(News)
+export default connect(mapStateToProps, null)(News)

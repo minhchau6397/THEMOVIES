@@ -27,7 +27,7 @@ export const formatTime = (second) => {
 //-----Format to vietnam region dd-mm-yyyy
 export const formatVNDate = (strDate) => {
 	if (strDate) {
-		let res = strDate.split(/[.\-\/ ]+/);
+		let res = strDate.split(/[.\-/ ]+/);
 		return `${res[2]}.${res[1]}.${res[0]}`;
 	}
 }
@@ -35,7 +35,7 @@ export const formatVNDate = (strDate) => {
 //-----Sum date
 export const sumDate = (strDate, day) => {
 	if (strDate) {
-		let res = strDate.split(/[.\-\/ ]+/);
+		let res = strDate.split(/[.\-/ ]+/);
 		let date = new Date(res[0], res[1], res[2]);
 		date.setDate(date.getDate() + day);
 		return dateToString(date);

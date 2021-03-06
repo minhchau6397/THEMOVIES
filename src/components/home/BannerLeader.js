@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch  } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useTransition, animated } from 'react-spring'
 
 import { getBanners } from '../../redux/actions/banner_action'
 
 export const BannerLeader = (props) => {
-    const { banners } = props
+    const { banners } = props;
+    const dispatch = useDispatch();
     const [indexBanner, setIndexBanner] = useState(0);
     const transition = useTransition(indexBanner, null, {
         initial: null,
@@ -18,8 +19,8 @@ export const BannerLeader = (props) => {
 
 
     useEffect(() => {
-        props.getBanners()
-    }, [])
+        dispatch(getBanners())
+    }, [dispatch])
 
 
     const handleSlide = (direction) => {
@@ -56,13 +57,13 @@ export const BannerLeader = (props) => {
     }
     const renderDotCtrl = () => {
         return banners.map((item, index) => {
-            return <span key={index} onClick={() => this.handleDotCtrl(index)} className={`dot-ctrl${(index === indexBanner) ? " active" : ""}`} />
+            return <span key={index} onClick={() => handleDotCtrl(index)} className={`dot-ctrl${(index === indexBanner) ? " active" : ""}`} />
         })
     }
     const renderSubBanner = () => {
         if (banners.length > 0) {
-            return transition.map(({item, props, key}) => {
-                return <Link key={key} to={`/movie/detail/${banners[item].movieId}`}><animated.img style={{...props}} className="myslide" src={banners[item].image} alt={banners[item].titleEN} /></Link>
+            return transition.map(({ item, props, key }) => {
+                return <Link key={key} to={`/movie/detail/${banners[item].movieId}`}><animated.img style={{ ...props }} className="myslide" src={banners[item].image} alt={banners[item].titleEN} /></Link>
             })
         }
     }
@@ -75,7 +76,7 @@ export const BannerLeader = (props) => {
         <div id="lead-banner">
             <div className="pack">
                 <div className="bg-banner">
-                    {(banners) && renderBackground() }
+                    {(banners) && renderBackground()}
                 </div>
                 <div className="grid">
                     <div className="content-banner">
@@ -103,10 +104,4 @@ const mapStateToProps = (state) => ({
     banners: state.banners
 })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getBanners: () => { dispatch(getBanners()) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BannerLeader)
+export default connect(mapStateToProps, null)(BannerLeader)

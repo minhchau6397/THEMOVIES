@@ -33,9 +33,9 @@ export const Article = (props) => {
     const renderLoading = () => {
         return <div style={{ textAlign: "center", height: '1080px' }}>loading</div>
     }
-    const renderEmpty = () => {
-        return <div style={{ textAlign: "center", height: '1080px' }}>empty content</div>
-    }
+    // const renderEmpty = () => {
+    //     return <div style={{ textAlign: "center", height: '1080px' }}>empty content</div>
+    // }
 
 
     return (news !== null) ? (
@@ -60,7 +60,6 @@ export const Article = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.firestore.data);
     return ({
         news: state.firestore.data.new,
         recNews: state.firestore.ordered.news

@@ -104,50 +104,66 @@ export const addSchedule = (id, schedule, sub, sub2) => {
         const today = new Date()
 
         //--------INSERT DOC
-        // firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
-        //     ...schedule
+        firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
+            ...schedule
+        }).then(res => {
+            console.log(schedule, res);
+        }).catch(err => {
+            console.log(err);
+        })
+        today.setDate(today.getDate() + 1)
+        firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
+            ...schedule
+        }).then(res => {
+            console.log(schedule, res);
+        }).catch(err => {
+            console.log(err);
+        })
+        today.setDate(today.getDate() + 2)
+        firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
+            ...schedule
+        }).then(res => {
+            console.log(schedule, res);
+        }).catch(err => {
+            console.log(err);
+        })
+
+        // firestore.collection(`cinemas/${id}`).doc("Pshi7tywwPLu9fHcTH1f").set({
+        //     expireTime: '2021-04-20',
+        //     movie: 'Pshi7tywwPLu9fHcTH1f',
+        //     cinema: sub,
+        //     location: sub2
         // }).then(res => {
         //     console.log(schedule, res);
         // }).catch(err => {
         //     console.log(err);
         // })
-        // today.setDate(today.getDate() + 1)
-        // firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
-        //     ...schedule
-        // }).then(res => {
-        //     console.log(schedule, res);
-        // }).catch(err => {
-        //     console.log(err);
-        // })
-        // today.setDate(today.getDate() + 2)
-        // firestore.collection(`cinemas/${id}`).doc(dateToString(today)).set({
-        //     ...schedule
+        // firestore.collection(`cinemas/${id}`).doc("blpfNZIEPaqq8oMT0S0M").set({
+        //     expireTime: '2021-04-20',
+        //     movie: 'blpfNZIEPaqq8oMT0S0M',
+        //     cinema: sub,
+        //     location: sub2
         // }).then(res => {
         //     console.log(schedule, res);
         // }).catch(err => {
         //     console.log(err);
         // })
 
-        firestore.collection(`cinemas/${id}`).doc("Pshi7tywwPLu9fHcTH1f").set({
-            expireTime: '2021-04-20',
-            movie: 'Pshi7tywwPLu9fHcTH1f',
-            cinema: sub,
-            location: sub2
-        }).then(res => {
-            console.log(schedule, res);
-        }).catch(err => {
-            console.log(err);
-        })
-        firestore.collection(`cinemas/${id}`).doc("blpfNZIEPaqq8oMT0S0M").set({
-            expireTime: '2021-04-20',
-            movie: 'blpfNZIEPaqq8oMT0S0M',
-            cinema: sub,
-            location: sub2
-        }).then(res => {
-            console.log(schedule, res);
-        }).catch(err => {
-            console.log(err);
-        })
+
+        // firestore.collection(`movies`).doc("Pshi7tywwPLu9fHcTH1f").update({
+        //     expireTime: '2021-04-20'
+        // }).then(res => {
+        //     console.log(schedule, res);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
+        // firestore.collection(`movies`).doc("blpfNZIEPaqq8oMT0S0M").update({
+        //     expireTime: '2021-04-20',
+        // }).then(res => {
+        //     console.log(schedule, res);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
 
 
         //--------DELETE DOC

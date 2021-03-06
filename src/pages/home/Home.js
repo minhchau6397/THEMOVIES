@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 
 import BannerLeader from '../../components/home/BannerLeader'
 import ListShowing from '../../components/home/ListShowing'
@@ -11,15 +11,16 @@ import { setNav } from '../../redux/actions/nav_action';
 
 export const Home = (props) => {
     const { windowWidth } = useWindowDimension();
+    const dispatch = useDispatch();
     const elRef = useRef(null);
     const isMobile = (windowWidth <= 620) ? true : false;
 
     useEffect(() => {
         if (elRef.current && props.nav) {
             elRef.current.scrollIntoView({ behavior: 'smooth' });
-            props.setNav('home', false)
+            dispatch(setNav('home', false));
         }
-    }, [props.nav])
+    }, [props.nav,dispatch])
 
     return (
         <div ref={elRef}>
@@ -39,10 +40,4 @@ const mapStateToProps = (state) => ({
     nav: state.nav.home
 })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setNav: (name, value) => dispatch(setNav(name, value))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, null)(Home)

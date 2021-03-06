@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 
@@ -10,6 +10,7 @@ import { setNav } from '../../redux/actions/nav_action'
 
 export const Cinema = (props) => {
     const { cinemas, cinemaData, movies, schedules, nav } = props
+    const dispatch = useDispatch();
     const [keyCinema, setKeyCinema] = useState(null);
     const [keyLocation, setKeyLocation] = useState(null);
     const elRef = useRef(null);
@@ -24,10 +25,12 @@ export const Cinema = (props) => {
     }, [cinemas])
     useEffect(() => {
         if (keyCinema) {
-            props.getLocations(keyCinema);
-            props.setSchedulesHome();
+            dispatch(getLocation(keyCinema));
+            dispatch(setSchedulesHome());
+            // props.getLocations(keyCinema);
+            // props.setSchedulesHome();
         }
-    }, [keyCinema])
+    }, [keyCinema, dispatch])
     useEffect(() => {
         if (Object.keys(cinemaData).length > 0) {
             if (cinemaData.locations.length > 0) {
@@ -37,22 +40,24 @@ export const Cinema = (props) => {
     }, [cinemaData])
     useEffect(() => {
         if (keyLocation) {
-            props.setSchedulesHome();
-            props.getSchedules(keyCinema, keyLocation);
+            dispatch(setSchedulesHome());
+            dispatch(getSchedulesByLocation(keyCinema, keyLocation));
         }
-    }, [keyLocation])
+    }, [keyLocation, keyCinema, dispatch])
     useEffect(() => {
-        if (elRef.current && props.nav) {
+        if (elRef.current && nav) {
             elRef.current.scrollIntoView({ behavior: 'smooth' });
-            props.setNav('cinema', false)
+            dispatch(setNav('cinema', false))
         }
-    }, [nav])
+    }, [nav,dispatch])
 
 
     //--------Handle click
     const handleClickCinema = (key) => {
-        setKeyLocation(null)
-        setKeyCinema(key);
+        if (keyCinema !== key) {
+            setKeyLocation(null)
+            setKeyCinema(key);
+        }
     }
     const handleClickLocation = (key) => {
         setKeyLocation(key)
@@ -65,10 +70,10 @@ export const Cinema = (props) => {
             const item = cinemas[key];
             return (
                 <li key={index} onClick={() => handleClickCinema(key)} className={`cinema-item${(keyCinema === key) ? " active" : ""}`}>
-                    <a>
+                    <div>
                         <img src={item.image} alt={item.cinema} />
                         <h3>{item.cinema}</h3>
-                    </a>
+                    </div>
                 </li>
             )
         })
@@ -155,17 +160,8 @@ const mapStateToProps = (state) => ({
     nav: state.nav.cinema
 })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setNav: (name, value) => dispatch(setNav(name, value)),
-        getLocations: idCinema => dispatch(getLocation(idCinema)),
-        getSchedules: (keyCinema, keyLocation) => dispatch(getSchedulesByLocation(keyCinema, keyLocation)),
-        setSchedulesHome: () => dispatch(setSchedulesHome())
-    }
-}
-
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, null),
     firestoreConnect([
         { collection: "cinemas" },
         { collection: "movies", where: [["isShowing", "==", true], ['expireTime', '>=', dateToString(new Date())]], orderBy: ['expireTime', 'desc'] }

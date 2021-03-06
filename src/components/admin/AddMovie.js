@@ -40,23 +40,25 @@ export const AddData = (props) => {
     }
     const handleSubmitMovies = () => {
         props.createMovies({
-            titleEN: "Hard kill 123",
-            titleVN: "Đối đầu 123",
-            release: "2021-01-05",
-            expireTime: "2021-02-20",
+            titleEN: "Dragon Rider",
+            titleVN: "Kỵ Sĩ Cưỡi Rồng",
+            image: "/images/banner_dragonrider.jpg",
+            background: "/images/slide_dragonrider.jpg",
+            imageMobile: "/images/mobile_dragonrider.jpg",
+            isShowing: false,
+            release: "2021-04-20",
+            expireTime: "2021-05-10",
             producer: "Joel Crawford",
             cast: "Kelly Marie Tran, Cloris Leachman, Catherine Keener, Ryan Reynolds, Emma Stone, Nicolas Cage",
             category: "Hài, Hoạt Hình",
             nation: "Mỹ",
             describes: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere voluptate quam quae dicta ad quos, numquam et illum illo accusamus nesciunt voluptatem dignissimos fugiat quasi debitis eos, officia assumenda quia?",
-            age: "c18",
+            age: "p",
             type: "2D/Digital",
             imdb: "0",
             score: "5.5",
             length: "103",
-            image: "/images/banner_hardkill.jpg",
-            background: "/images/banner_hardkill_bg.jpg",
-            thumbnail: "https://via.placeholder.com/150.png"
+            thumbnail: "https://via.placeholder.com/150.png",
         })
     }
 
